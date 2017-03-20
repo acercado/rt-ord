@@ -1,0 +1,5 @@
+[run]
+include = bcast_online_report_dashboard/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin

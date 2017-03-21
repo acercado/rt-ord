@@ -12,6 +12,7 @@ from __future__ import absolute_import, unicode_literals
 
 import environ
 import os
+import raven
 
 ROOT_DIR = environ.Path(__file__) - 3  # (bcast_online_report_dashboard/config/settings/base.py - 3 = bcast_online_report_dashboard/)
 APPS_DIR = ROOT_DIR.path('bcast_online_report_dashboard')

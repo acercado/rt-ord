@@ -1,0 +1,10 @@
+{% load staticfiles %}
+{% include 'base_header.html' %}
+{% include 'base_sidebar.html' %}
+{% include 'base_topbar.html' %}
+<!-- page content -->
+<div class="right_col" role="main">
+{% block content %}{% endblock %}
+</div>
+<!-- /page content -->
+{% include 'base_footer.html' %}

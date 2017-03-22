@@ -7,12 +7,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
-from . import usagetypes.views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^sampler$', TemplateView.as_view(template_name='base_main.html'), name='sampler'),
-    url(r'^dashboard$', views.dashboard, name='dashboard'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}
@@ -21,6 +19,7 @@ urlpatterns = [
     # User management
     url(r'^users/', include('bcast_online_report_dashboard.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^usagetypes/', include('bcast_online_report_dashboard.usagetypes.urls', namespace='usagetypes')),
 
     # Your stuff: custom urls includes go here
 

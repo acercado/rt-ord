@@ -1,32 +1,52 @@
-{% extends "account/base.html" %}
-
+{% load staticfiles i18n %}
 {% load i18n %}
-{% load account %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+    <title>RT Online Report Dashboard</title>
 
+    <!-- Bootstrap -->
+    <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="{% static 'vendors/animate.css/animate.min.css' %}" rel="stylesheet">
 
-{% block inner %}
-<h1>{% trans "Confirm E-mail Address" %}</h1>
+    <!-- Custom Theme Style -->
+    <link href="{% static 'css/custom.min.css' %}" rel="stylesheet">
+  </head>
 
-{% if confirmation %}
+  <body class="login">
+    <div>
 
-{% user_display confirmation.email_address.user as user_display %}
+      <div class="login_wrapper">
+        <div class="form login_form">
+          <section class="login_content">
+          {% if confirmation %}
+            <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+              <h1>Confirm Email</h1>
+              <p>We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.</p>
+              <button class="btn btn-primary" type="submit">{% trans 'Confirm' %}</button>
+            </form>
+          {% else %}
+            <form>
+              <h1>Expired</h1>
+              <p>{% url 'account_email' as email_url %}</p>
+              <p>This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.</p>
+            </form>
+          </section>
+        </div>
 
-<p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
-
-<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
-{% csrf_token %}
-    <button class="btn btn-primary" type="submit">{% trans 'Confirm' %}</button>
-</form>
-
-{% else %}
-
-{% url 'account_email' as email_url %}
-
-<p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
-
-{% endif %}
-
-{% endblock %}
-
+      </div>
+    </div>
+  </body>
+</html>

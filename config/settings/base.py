@@ -64,7 +64,7 @@ LOCAL_APPS = [
     # custom users app
     'bcast_online_report_dashboard.users.apps.UsersConfig',
     # Your stuff: custom apps go here
-    'bcast_online_report_dashboard.usagetypes.apps.UsersConfig',
+    'bcast_online_report_dashboard.usagetypes.apps.UsagetypesConfig',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

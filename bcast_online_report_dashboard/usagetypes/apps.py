@@ -11,4 +11,3 @@ class UsagetypesConfig(AppConfig):
             Users signal registration
         """
         pass
-

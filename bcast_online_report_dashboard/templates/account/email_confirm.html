@@ -33,6 +33,7 @@
           <section class="login_content">
           {% if confirmation %}
             <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+            {% csrf_token %}
               <h1>Confirm Email</h1>
               <p>We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.</p>
               <button class="btn btn-primary" type="submit">{% trans 'Confirm' %}</button>

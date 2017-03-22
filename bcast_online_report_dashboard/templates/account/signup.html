@@ -29,9 +29,9 @@
     <div>
 
       <div class="login_wrapper">
-        <div id="register" class="form registration_form">
+        <div id="register" class="form">
           <section class="login_content">
-            <form>
+            <form method="post" action="{% url 'account_signup' %}">
               <h1>Create Account</h1>
               {% csrf_token %}
               {{ form|crispy }}

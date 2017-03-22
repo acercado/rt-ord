@@ -34,6 +34,11 @@
             <form>
               <h1>Verify your Email address</h1>
               <p>We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.</p>
+              {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+                  {% endfor %}
+              {% endif %}
             </form>
           </section>
         </div>

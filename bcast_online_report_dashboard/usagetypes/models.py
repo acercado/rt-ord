@@ -17,3 +17,14 @@ class Bcast(models.Model):
     class Meta:
         db_table = "ord_bcast_values"
         managed = False
+
+
+class Usagetypes(models.Model):
+    usagetype = models.CharField(max_length=64)
+
+    def __str__(self):
+        return ' '.join(self.usagetype)
+
+    class Meta:
+        db_table = "ord_usagetypes"
+        managed = False

@@ -20,6 +20,7 @@ class Bcast(models.Model):
 
 
 class Usagetypes(models.Model):
+    id = models.AutoField(primary_key=True)
     usagetype = models.CharField(max_length=64)
 
     def __str__(self):

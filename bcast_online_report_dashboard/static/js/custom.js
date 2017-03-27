@@ -3309,95 +3309,107 @@ if (typeof NProgress != 'undefined') {
 
 			   //echart Line
 
-			if ($('#echart_line').length ){
+            if ($('#echart_line').length ){
 
-			  var echartLine = echarts.init(document.getElementById('echart_line'), theme);
+                  var echartLine = echarts.init(document.getElementById('echart_line'), theme);
 
-			  echartLine.setOption({
-				title: {
-				  text: 'Line Graph',
-				  subtext: 'Subtitle'
-				},
-				tooltip: {
-				  trigger: 'axis'
-				},
-				legend: {
-				  x: 220,
-				  y: 40,
-				  data: ['Intent', 'Pre-order', 'Deal']
-				},
-				toolbox: {
-				  show: true,
-				  feature: {
-					magicType: {
-					  show: true,
-					  title: {
-						line: 'Line',
-						bar: 'Bar',
-						stack: 'Stack',
-						tiled: 'Tiled'
-					  },
-					  type: ['line', 'bar', 'stack', 'tiled']
-					},
-					restore: {
-					  show: true,
-					  title: "Restore"
-					},
-					saveAsImage: {
-					  show: true,
-					  title: "Save Image"
-					}
-				  }
-				},
-				calculable: true,
-				xAxis: [{
-				  type: 'category',
-				  boundaryGap: false,
-				  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-				}],
-				yAxis: [{
-				  type: 'value'
-				}],
-				series: [{
-				  name: 'Deal',
-				  type: 'line',
-				  smooth: true,
-				  itemStyle: {
-					normal: {
-					  areaStyle: {
-						type: 'default'
-					  }
-					}
-				  },
-				  data: [10, 12, 21, 54, 260, 830, 710]
-				}, {
-				  name: 'Pre-order',
-				  type: 'line',
-				  smooth: true,
-				  itemStyle: {
-					normal: {
-					  areaStyle: {
-						type: 'default'
-					  }
-					}
-				  },
-				  data: [30, 182, 434, 791, 390, 30, 10]
-				}, {
-				  name: 'Intent',
-				  type: 'line',
-				  smooth: true,
-				  itemStyle: {
-					normal: {
-					  areaStyle: {
-						type: 'default'
-					  }
-					}
-				  },
-				  data: [1320, 1132, 601, 234, 120, 90, 20]
-				}]
-			  });
+                  echartLine.setOption({
+                    title: {
+                      text: '2GOEXP_ECOM_BCAST',
+                      subtext: 'Count'
+                    },
+                    tooltip: {
+                      trigger: 'axis'
+                    },
+                    legend: {
+                      x: 220,
+                      y: 40,
+                      data: ['Globe', 'Smart', 'Sun', 'Unknown']
+                    },
+                    toolbox: {
+                      show: true,
+                      feature: {
+                        magicType: {
+                          show: true,
+                          title: {
+                            line: 'Line',
+                            bar: 'Bar',
+                            stack: 'Stack',
+                            tiled: 'Tiled'
+                          },
+                          type: ['line', 'bar', 'stack', 'tiled']
+                        },
+                        restore: {
+                          show: true,
+                          title: "Restore"
+                        },
+                        saveAsImage: {
+                          show: true,
+                          title: "Save Image"
+                        }
+                      }
+                    },
+                    calculable: true,
+                    xAxis: [{
+                      type: 'category',
+                      boundaryGap: false,
+                      data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05', '2017-03-06', '2017-03-07']
+                    }],
+                    yAxis: [{
+                      type: 'value'
+                    }],
+                    series: [{
+                      name: 'Globe',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [10, 12, 21, 54, 260, 830, 710]
+                    }, {
+                      name: 'Smart',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [30, 182, 434, 791, 390, 30, 10]
+                    }, {
+                      name: 'Sun',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [1320, 1132, 601, 234, 120, 90, 20]
+                    }, {
+                      name: 'Unknown',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [1210, 1022, 391, 124, 60, 40, 5]
+                    }]
+                  });
 
-			}
+                }
 
 			   //echart Scatter
 

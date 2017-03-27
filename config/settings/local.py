@@ -72,6 +72,15 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # Your local stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
-ALLOWED_HOSTS = ['.ngrok.io',]
+ALLOWED_HOSTS = ['.ngrok.io', 'localhost',]
 
-DATABASE_URL="postgres://developer:pandaserverako@127.0.0.1:5432/bcast_online_report_dashboard"
+# DATABASE_URL="postgres://developer:pandaserverako@127.0.0.1:5432/bcast_online_report_dashboard"
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'bcast_online_report_dashboard',
+        'USER': 'acercado',
+        'PASSWORD': 'isf4laxi',
+    },
+}

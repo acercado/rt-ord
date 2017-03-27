@@ -1,0 +1,15 @@
+create table ord_bcast_values(rowid SERIAL PRIMARY KEY,
+logtype varchar(32) NOT NULL,
+usagetype varchar(64) NOT NULL,
+cnt_globe integer,
+cnt_smart integer,
+cnt_sun integer,
+cnt_unknown integer,
+val_origin varchar(32) NOT NULL,
+trandate varchar(10), tstamp timestamp default now());
+
+create unique index ix_ord_bcast_values ON ord_bcast_values(logtype, trandate, usagetype)
+
+create table ord_usagetypes(rowid SERIAL PRIMARY KEY, usagetype varchar(64) NOT NULL);
+
+\copy ord_bcast_values from '/home/acercado/projects/rt-ord/sql/ord_bcast_values.csv' DELIMITER ',' CSV

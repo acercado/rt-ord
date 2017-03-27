@@ -1,6 +1,7 @@
 from django.db import models
 
 class Bcast(models.Model):
+    rowid = models.AutoField(primary_key=True)
     logtype = models.CharField(max_length=32)
     usagetype = models.CharField(max_length=64)
     cnt_globe = models.IntegerField(null=True, blank=True)

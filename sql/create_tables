@@ -12,4 +12,14 @@ create unique index ix_ord_bcast_values ON ord_bcast_values(logtype, trandate, u
 
 create table ord_usagetypes(rowid SERIAL PRIMARY KEY, usagetype varchar(64) NOT NULL);
 
+create table ord_bcast_saved_dashboard(
+rowid SERIAL PRIMARY KEY,
+usagetype varchar(32) NOT NULL,
+daterange_start varchar(10) NOT NULL,
+daterange_end varchar(10) NOT NULL,
+username varchar(150) NOT NULL,
+tstamp timestamp default now()
+);
+
+
 \copy ord_bcast_values from '/home/acercado/projects/rt-ord/sql/ord_bcast_values.csv' DELIMITER ',' CSV

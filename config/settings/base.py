@@ -269,7 +269,8 @@ SOCIALACCOUNT_ADAPTER = 'bcast_online_report_dashboard.users.adapters.SocialAcco
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
+# LOGIN_REDIRECT_URL = 'users:redirect'
+LOGIN_REDIRECT_URL = 'usagetypes:wizard'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER

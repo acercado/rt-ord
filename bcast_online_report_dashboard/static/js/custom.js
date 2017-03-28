@@ -184,6 +184,39 @@ $(document).ready(function() {
 });
 // /Tooltip
 
+// WISARD
+$(document).ready(function() {
+    if ($('#wizard_verticle').length ){
+        var citynames = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          prefetch: {
+            url: '/static/usagetypes.json',
+            filter: function(list) {
+              return $.map(list, function(cityname) {
+                return { name: cityname }; });
+            }
+          }
+        });
+        citynames.initialize();
+        $('#usagetypes').tagsinput({
+          typeaheadjs: {
+            name: 'citynames',
+            displayKey: 'name',
+            valueKey: 'name',
+            source: citynames.ttAdapter()
+          }
+        });
+    }
+    if ($('#usagetypes').length ){
+        $('#usagetypes').on('itemAdded', function(event) {
+          console.log(event.item)
+          console.log($('#usagetypes').val())
+        });
+    }
+});
+// /Tooltip
+
 // Progressbar
 if ($(".progress .progress-bar")[0]) {
     $('.progress .progress-bar').progressbar();
@@ -1772,16 +1805,10 @@ if (typeof NProgress != 'undefined') {
 			if( typeof ($.fn.daterangepicker) === 'undefined'){ return; }
 			console.log('init_daterangepicker_reservation');
 
-			$('#reservation').daterangepicker(null, function(start, end, label) {
-			  console.log(start.toISOString(), end.toISOString(), label);
-			});
-
-			$('#reservation-time').daterangepicker({
-			  timePicker: true,
-			  timePickerIncrement: 30,
-			  locale: {
-				format: 'MM/DD/YYYY h:mm A'
-			  }
+			$('#usagetype_daterange').daterangepicker(null, function(start, end, label) {
+			  console.log(start.toISOString(), end.toISOString(), 'usagetype_daterange');
+              $('#daterange_start').val(start.toISOString())
+              $('#daterange_end').val(end.toISOString())
 			});
 
 		}
@@ -1793,10 +1820,11 @@ if (typeof NProgress != 'undefined') {
 			if( typeof ($.fn.smartWizard) === 'undefined'){ return; }
 			console.log('init_SmartWizard');
 
-			$('#wizard').smartWizard();
+			// $('#wizard').smartWizard();
 
 			$('#wizard_verticle').smartWizard({
-			  transitionEffect: 'slide'
+			  transitionEffect: 'slide',
+              onFinish: onFinishCallback
 			});
 
 			$('.buttonNext').addClass('btn btn-success');
@@ -1804,6 +1832,24 @@ if (typeof NProgress != 'undefined') {
 			$('.buttonFinish').addClass('btn btn-default');
 
 		};
+
+        function onFinishCallback(objs, context){
+            console.log('Wizard has finished!');
+            $('form').submit();
+            // alert('Finished!');
+            // $.post('/cms/loyaltycode/check/' + q, function(data){
+            //   var json = JSON.parse(data);
+            //   console.log('msg: '+json['msg']);
+            //   if(json['msg'] != 'None') {
+            //     $(this).focus();
+            //     $(this).select();
+            //     $('#modal-success h4.modal-title').text('Loyalty Codes');
+            //     $('#modal-success div.modal-body').text('Code \"'+q+'\" already in use.');
+            //     mode = '';
+            //     $('#modal-success').modal('show');
+            //   }
+            // });
+        }
 
 
 	  /* VALIDATOR */
@@ -3309,9 +3355,9 @@ if (typeof NProgress != 'undefined') {
 
 			   //echart Line
 
-            if ($('#echart_line').length ){
+            if ($('#echart_line1').length ){
 
-                  var echartLine = echarts.init(document.getElementById('echart_line'), theme);
+                  var echartLine = echarts.init(document.getElementById('echart_line1'), theme);
 
                   echartLine.setOption({
                     title: {
@@ -3353,7 +3399,7 @@ if (typeof NProgress != 'undefined') {
                     xAxis: [{
                       type: 'category',
                       boundaryGap: false,
-                      data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05', '2017-03-06', '2017-03-07']
+                      data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05']
                     }],
                     yAxis: [{
                       type: 'value'
@@ -3369,7 +3415,7 @@ if (typeof NProgress != 'undefined') {
                           }
                         }
                       },
-                      data: [10, 12, 21, 54, 260, 830, 710]
+                      data: [2442, 2452, 2727, 2316, 22]
                     }, {
                       name: 'Smart',
                       type: 'line',
@@ -3381,7 +3427,7 @@ if (typeof NProgress != 'undefined') {
                           }
                         }
                       },
-                      data: [30, 182, 434, 791, 390, 30, 10]
+                      data: [2016,2226,1867,2051,40]
                     }, {
                       name: 'Sun',
                       type: 'line',
@@ -3393,7 +3439,7 @@ if (typeof NProgress != 'undefined') {
                           }
                         }
                       },
-                      data: [1320, 1132, 601, 234, 120, 90, 20]
+                      data: [381, 487, 422, 410, 1]
                     }, {
                       name: 'Unknown',
                       type: 'line',
@@ -3405,7 +3451,313 @@ if (typeof NProgress != 'undefined') {
                           }
                         }
                       },
-                      data: [1210, 1022, 391, 124, 60, 40, 5]
+                      data: [645, 690, 692, 654, 7]
+                    }]
+                  });
+
+                }
+
+            if ($('#echart_line2').length ){
+
+                  var echartLine = echarts.init(document.getElementById('echart_line2'), theme);
+
+                  echartLine.setOption({
+                    title: {
+                      text: 'ECOM_MT',
+                      subtext: 'Count'
+                    },
+                    tooltip: {
+                      trigger: 'axis'
+                    },
+                    legend: {
+                      x: 220,
+                      y: 40,
+                      data: ['Globe', 'Smart', 'Sun', 'Unknown']
+                    },
+                    toolbox: {
+                      show: true,
+                      feature: {
+                        magicType: {
+                          show: true,
+                          title: {
+                            line: 'Line',
+                            bar: 'Bar',
+                            stack: 'Stack',
+                            tiled: 'Tiled'
+                          },
+                          type: ['line', 'bar', 'stack', 'tiled']
+                        },
+                        restore: {
+                          show: true,
+                          title: "Restore"
+                        },
+                        saveAsImage: {
+                          show: true,
+                          title: "Save Image"
+                        }
+                      }
+                    },
+                    calculable: true,
+                    xAxis: [{
+                      type: 'category',
+                      boundaryGap: false,
+                      data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05']
+                    }],
+                    yAxis: [{
+                      type: 'value'
+                    }],
+                    series: [{
+                      name: 'Globe',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [441673, 1124970, 790272, 790272, 790272]
+                    }, {
+                      name: 'Smart',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [186389, 540965, 314842, 35578, 18627]
+                    }, {
+                      name: 'Sun',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [80660, 240792, 134530, 12581, 7114]
+                    }, {
+                      name: 'Unknown',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [18996, 55124, 29293, 5833, 4546]
+                    }]
+                  });
+
+                }
+
+            if ($('#echart_line11').length ){
+
+                  var echartLine = echarts.init(document.getElementById('echart_line11'), theme);
+
+                  echartLine.setOption({
+                    title: {
+                      text: '2GOEXP_ECOM_BCAST',
+                      subtext: 'Count'
+                    },
+                    tooltip: {
+                      trigger: 'axis'
+                    },
+                    legend: {
+                      x: 220,
+                      y: 40,
+                      data: ['Globe', 'Smart', 'Sun', 'Unknown']
+                    },
+                    toolbox: {
+                      show: true,
+                      feature: {
+                        magicType: {
+                          show: true,
+                          title: {
+                            line: 'Line',
+                            bar: 'Bar',
+                            stack: 'Stack',
+                            tiled: 'Tiled'
+                          },
+                          type: ['line', 'bar', 'stack', 'tiled']
+                        },
+                        restore: {
+                          show: true,
+                          title: "Restore"
+                        },
+                        saveAsImage: {
+                          show: true,
+                          title: "Save Image"
+                        }
+                      }
+                    },
+                    calculable: true,
+                    xAxis: [{
+                      type: 'category',
+                      boundaryGap: false,
+                      data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05']
+                    }],
+                    yAxis: [{
+                      type: 'value'
+                    }],
+                    series: [{
+                      name: 'Globe',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [2442, 2452, 2727, 2316, 22]
+                    }, {
+                      name: 'Smart',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [2016,2226,1867,2051,40]
+                    }, {
+                      name: 'Sun',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [381, 487, 422, 410, 1]
+                    }, {
+                      name: 'Unknown',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [645, 690, 692, 654, 7]
+                    }]
+                  });
+
+                }
+
+            if ($('#echart_line22').length ){
+
+                  var echartLine = echarts.init(document.getElementById('echart_line22'), theme);
+
+                  echartLine.setOption({
+                    title: {
+                      text: 'ECOM_MT',
+                      subtext: 'Count'
+                    },
+                    tooltip: {
+                      trigger: 'axis'
+                    },
+                    legend: {
+                      x: 220,
+                      y: 40,
+                      data: ['Globe', 'Smart', 'Sun', 'Unknown']
+                    },
+                    toolbox: {
+                      show: true,
+                      feature: {
+                        magicType: {
+                          show: true,
+                          title: {
+                            line: 'Line',
+                            bar: 'Bar',
+                            stack: 'Stack',
+                            tiled: 'Tiled'
+                          },
+                          type: ['line', 'bar', 'stack', 'tiled']
+                        },
+                        restore: {
+                          show: true,
+                          title: "Restore"
+                        },
+                        saveAsImage: {
+                          show: true,
+                          title: "Save Image"
+                        }
+                      }
+                    },
+                    calculable: true,
+                    xAxis: [{
+                      type: 'category',
+                      boundaryGap: false,
+                      data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05']
+                    }],
+                    yAxis: [{
+                      type: 'value'
+                    }],
+                    series: [{
+                      name: 'Globe',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [441673, 1124970, 790272, 790272, 790272]
+                    }, {
+                      name: 'Smart',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [186389, 540965, 314842, 35578, 18627]
+                    }, {
+                      name: 'Sun',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [80660, 240792, 134530, 12581, 7114]
+                    }, {
+                      name: 'Unknown',
+                      type: 'line',
+                      smooth: true,
+                      itemStyle: {
+                        normal: {
+                          areaStyle: {
+                            type: 'default'
+                          }
+                        }
+                      },
+                      data: [18996, 55124, 29293, 5833, 4546]
                     }]
                   });
 

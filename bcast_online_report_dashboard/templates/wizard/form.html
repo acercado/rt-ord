@@ -1,0 +1,118 @@
+{% extends "base_main.html" %}
+{% load staticfiles %}
+{% block content %}
+<div id="wizard_verticle" class="form_wizard wizard_verticle">
+  <ul class="list-unstyled wizard_steps">
+    <li>
+      <a href="#step-11">
+        <span class="step_no">1</span>
+      </a>
+    </li>
+    <li>
+      <a href="#step-22">
+        <span class="step_no">2</span>
+      </a>
+    </li>
+<!--     <li>
+      <a href="#step-33">
+        <span class="step_no">3</span>
+      </a>
+    </li>
+    <li>
+      <a href="#step-44">
+        <span class="step_no">4</span>
+      </a>
+    </li> -->
+  </ul>
+
+  <div id="step-11">
+    <h2 class="StepTitle">Step 1</h2>
+    <form class="form-horizontal form-label-left" method="POST">
+      {% csrf_token %}
+      <span class="section">Select Usagetypes and Date Range</span>
+
+      <div class="control-group">
+        <div class="row">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Usagetypes</label>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <input type="text" value="2GOEXP_ECOM_BCAST,ECOM_MT" data-role="tagsinput" id="usagetypes" name="usagetypes"/>
+          </div>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+        <div class="row">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Range</label>
+          <div class="controls">
+            <div class="col-md-7 col-sm-7 col-xs-12">
+              <div class="input-prepend input-group">
+                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                <input type="text" style="width: 200px" name="usagetype_daterange" id="usagetype_daterange" class="form-control" value="{{ date_start }} - {{ date_end }}">
+                <input type="hidden" name="daterange_start" id="daterange_start" value="{{date_start}}">
+                <input type="hidden" name="daterange_end" id="daterange_end" value="{{date_end}}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">&nbsp;</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">&nbsp;</div>
+        </div>
+      </div>
+
+    </form>
+    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p> -->
+  </div>
+  <div id="step-22">
+    <h2 class="StepTitle">Step 2 Content</h2>
+    <div class="row">
+      <div class="">
+        <label>
+          <input type="checkbox" class="js-switch" checked /> Categorize by Account
+        </label>
+      </div>
+    </div>
+  </div>
+<!--   <div id="step-33">
+    <h2 class="StepTitle">Step 3 Content</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </div>
+  <div id="step-44">
+    <h2 class="StepTitle">Step 4 Content</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+      in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </div> -->
+</div>
+{% endblock content %}

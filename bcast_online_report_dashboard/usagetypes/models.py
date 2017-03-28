@@ -30,3 +30,18 @@ class Usagetypes(models.Model):
     class Meta:
         db_table = "ord_usagetypes"
         managed = False
+
+class Dashboard(models.Model):
+    rowid = models.AutoField(primary_key=True)
+    usagetype = models.CharField(max_length=32)
+    daterange_start = models.CharField(max_length=10)
+    daterange_end = models.CharField(max_length=10)
+    username = models.CharField(max_length=150)
+    tstamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.usagetype
+
+    class Meta:
+        db_table = "ord_bcast_saved_dashboard"
+        managed = False

@@ -42,6 +42,12 @@
                       <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
                   {% endfor %}
               {% endif %}
+              {% if form.non_field_errors %}
+                      {% for error in form.non_field_errors %}
+                          <!-- <li>{{ error }}</li> -->
+                          <div class="alert">{{ error }}</div>
+                      {% endfor %}
+              {% endif %}
               <div>
                 <input type="text" class="form-control" placeholder="Username" id="id_login" name="login" required="" autofocus="autofocus" required>
               </div>
@@ -66,8 +72,8 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1><img src="{% static 'images/rt_logo_sml.png' %}"> RT Online Report Dashboard</h1>
+                  <p>©2017 All Rights Reserved. Privacy and Terms</p>
                 </div>
               </div>
             </form>

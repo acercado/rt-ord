@@ -6,7 +6,7 @@ from django.db.models import Sum
 from datetime import date, datetime, timedelta
 from .models import Bcast
 from .models import Usagetypes
-from .forms import Dashboard
+from .forms import DashboardForm
 
 
 @login_required
@@ -117,21 +117,32 @@ def get_current_daterange():
 def form_wizard(request):
     obj_usagetypes = get_usagetypes()
     obj_startdate, obj_enddate = get_current_daterange()
+
     if request.method == 'POST':
         # usagetypes = request.POST['usagetype']
-        usagetypes = request.POST.get('usagetype', False)
+        usagetypes = request.POST.get('usagetypes','')
         usagetypes = usagetypes.split(',')
         daterange_start = request.POST['daterange_start']
         daterange_end = request.POST['daterange_end']
+
         for item in usagetypes:
-            form = Dashboard(request.POST)
-            if form.is_valid():
-                dashboard = form.save(commit=False)
-                dashboard.usagetype = item
-                dashboard.daterange_start = daterange_start
-                dashboard.daterange_end = daterange_end
-                dashboard.username = request.user
-                dashboard.save()
+            print('item: {}'.format(item))
+            data = {
+                'usagetype': item,
+                'daterange_start': daterange_start,
+                'daterange_end': daterange_end
+            }
+            form = DashboardForm(data)
+            print(form.is_valid())
+            # if form.is_valid():
+            dashboard = form.save(commit=False)
+            # dashboard.usagetype = item
+            # dashboard.daterange_start = daterange_start
+            # dashboard.daterange_end = daterange_end
+            dashboard.username = request.user
+            dashboard.save()
+            # else:
+            #     print('form was not valid')
         return render(request, 'wizard/form.html',
                       {
                             'usagetypes': obj_usagetypes,

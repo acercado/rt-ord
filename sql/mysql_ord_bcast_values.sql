@@ -37,7 +37,7 @@ CREATE TABLE `ord_bcast_values` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8168 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE UNIQUE INDEX idx_ord_bcast_values ON ord_bcast_values(logtype, usagetype, val_origin, trandate);
+-- CREATE UNIQUE INDEX idx_ord_bcast_values ON ord_bcast_values(logtype, usagetype, val_origin, trandate);
 CREATE INDEX idx_ord_bcast_values ON ord_bcast_values(usagetype, trandate);
 
 --

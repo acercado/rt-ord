@@ -23,3 +23,19 @@ tstamp timestamp default now()
 
 
 \copy ord_bcast_values from '/home/acercado/projects/rt-ord/sql/ord_bcast_values.csv' DELIMITER ',' CSV
+
+MySQL version:
+
+CREATE TABLE ord_bcast_values
+(
+  rowid INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  logtype varchar(32) NOT NULL,
+usagetype varchar(64) NOT NULL,
+cnt_globe integer,
+cnt_smart integer,
+cnt_sun integer,
+cnt_unknown integer,
+val_origin varchar(32) NOT NULL,
+trandate varchar(10), tstamp timestamp default now());
+
+create table ord_usagetypes(rowid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, usagetype varchar(64) NOT NULL);

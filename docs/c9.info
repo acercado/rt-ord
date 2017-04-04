@@ -1,0 +1,12 @@
+$ mysql-ctl start
+$ mysql-ctl cli
+# use c9
+
+
+start webserver:
+  $ python manage.py runserver $IP:$PORT
+
+
+browse via:
+  http://rt-ord2-adzcer.c9users.io/
+  

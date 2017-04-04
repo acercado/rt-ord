@@ -160,4 +160,16 @@ def form_wizard(request):
                         'date_end': obj_enddate
                   })
 
-
+def basic_page(request):
+    return render(request, 'basic.html')
+                      
+                      
+def test_page(request):
+    return render(request, 'blank/test.html',
+                      {
+                            'usagetypes': '',
+                            'date_start': '',
+                            'date_end': '',
+                            'mode': 'saved'
+                      })
+                      

@@ -28,12 +28,20 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='oc5n$2%17!J!fioi@f%jF5v^uuOyS6N9V
 # Mail settings
 # ------------------------------------------------------------------------------
 
-EMAIL_PORT = 1025
+# EMAIL_PORT = 1025
 
-EMAIL_HOST = 'localhost'
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
-                    default='django.core.mail.backends.console.EmailBackend')
+# EMAIL_HOST = 'localhost'
+# EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
+#                     default='django.core.mail.backends.console.EmailBackend')
 
+
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_PORT = 25
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+
+ANYMAIL = {
+    "SENDGRID_API_KEY": "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",
+}
 
 # CACHING
 # ------------------------------------------------------------------------------
@@ -64,7 +72,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # django-extensions
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ['django_extensions', ]
+INSTALLED_APPS += ['django_extensions', 'anymail', ]
 
 # TESTING
 # ------------------------------------------------------------------------------

@@ -187,6 +187,7 @@ $(document).ready(function() {
 // WISARD
 $(document).ready(function() {
     if ($('#wizard_verticle').length ){
+    	console.log('This has bee loaded...')
         var citynames = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
           queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -207,6 +208,11 @@ $(document).ready(function() {
             source: citynames.ttAdapter()
           }
         });
+		// $('#usagetypes').tagsinput({
+		//   typeahead: {
+		//     source: ['Amsterdam', 'Washington', 'Sydney', 'Beijing', 'Cairo']
+		//   }
+		// });        
     }
     if ($('#usagetypes').length ){
         $('#usagetypes').on('itemAdded', function(event) {

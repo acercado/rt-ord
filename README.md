@@ -8,3 +8,5 @@ $ source ~/.envs/rt-ord-python27/bin/activate
 $ cd ~/workspace
 
 $ python manage.py runserver $IP:$PORT
+
+https://rt-ord2-adzcer.c9users.io/

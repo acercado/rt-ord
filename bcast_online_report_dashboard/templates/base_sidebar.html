@@ -26,11 +26,11 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li class=""><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li class=""><a href="index.html">Report Wizard</a></li>
-                      <li><a href="index2.html">BCast Graphs</a></li>
-                      <li><a href="index3.html">BCast Reports</a></li>
+                  <li class="{% if request.path|slice:":18" == '/dashboard/panel1/' %}active{% endif %}"><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" {% if request.path|slice:":18" == '/dashboard/panel1/' %}style="display: block;"{% endif %}>
+                      <li class="{% if request.path|slice:":18" == '/dashboard/panel1/' %}current-page{% endif %}"><a href="/dashboard/panel1/">Dashboard</a></li>
+                      <li class="{% if request.path|slice:":18" == '/dashboard/panel2/' %}current-page{% endif %}"><a href="/dashboard/panel2/">Dashboard 2</a></li>
+                      <li class="{% if request.path|slice:":18" == '/dashboard/panel3/' %}current-page{% endif %}"><a href="/dashboard/panel3/">Dashboard 3</a></li>
                     </ul>
                   </li>
 <!--                   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
@@ -56,16 +56,16 @@
                       <li><a href="calendar.html">Calendar</a></li>
                     </ul>
                   </li> -->
-                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                  <li class="{% if request.path|slice:":15" == '/tables/panel1/' %}active{% endif %}"><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" {% if request.path|slice:":15" == '/tables/panel1/' %}style="display: block;"{% endif %}>
+                      <li class="{% if request.path|slice:":15" == '/tables/panel1/' %}current-page{% endif %}"><a href="/tables/panel1">Tables</a></li>
+                      <li class="{% if request.path|slice:":15" == '/tables/panel2/' %}current-page{% endif %}"><a href="/tables/panel2">Table Dynamic</a></li>
                     </ul>
                   </li>
-                  <li class="active"><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu" style="display: block;">
-                      <li class="current-page"><a href="chartjs.html">Line/Bar Charts</a></li>
-                      <li><a href="chartjs2.html">Pie Charts</a></li>
+                  <li class="{% if request.path|slice:":15" == '/charts/panel1/' %}active{% endif %}"><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" {% if request.path|slice:":15" == '/charts/panel1/' %}style="display: block;"{% endif %}>
+                      <li class="{% if request.path|slice:":15" == '/charts/panel1/' %}current-page{% endif %}"><a href="/charts/panel1/">Line/Bar Charts</a></li>
+                      <li class="{% if request.path|slice:":15" == '/charts/panel2/' %}current-page{% endif %}"><a href="/charts/panel2/">Pie Charts</a></li>
                     </ul>
                   </li>
 <!--                   <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>

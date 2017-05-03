@@ -7,9 +7,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from allauth.account import views
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    # no landing page yet, so dis is thisabled
+    # url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    
+    # go directly to allauth's login
+    url(r"^$", views.login, name="account_login"),
+    
     url(r'^sampler$', TemplateView.as_view(template_name='base_main.html'), name='sampler'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
@@ -20,6 +26,10 @@ urlpatterns = [
     url(r'^users/', include('bcast_online_report_dashboard.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^usagetypes/', include('bcast_online_report_dashboard.usagetypes.urls', namespace='usagetypes')),
+    url(r'^dashboard/', include('bcast_online_report_dashboard.dashboard.urls', namespace='dashboard')),
+    url(r'^charts/', include('bcast_online_report_dashboard.charts.urls', namespace='charts')),
+    url(r"^accounts/login", views.login, name="account_login"),
+    url(r'^accounts/signup', views.signup, name="account_signup"),
 
     # Your stuff: custom urls includes go here
 

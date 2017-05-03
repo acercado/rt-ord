@@ -1,0 +1,146 @@
+{% extends "base_main.html" %}
+{% load staticfiles %}
+{% block content %}
+        <!-- page content -->
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h4>BCast Usagetypes ({{month_today}})</h4>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- <div class="row">-->
+            <!--  <div class="col-md-12 col-sm-12 col-xs-12">-->
+            <!--    <div class="x_panel">-->
+            <!--      <div class="x_title">-->
+            <!--        <h2>Plain Page</h2>-->
+            <!--        <ul class="nav navbar-right panel_toolbox">-->
+            <!--          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+            <!--          </li>-->
+            <!--          <li class="dropdown">-->
+            <!--            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+            <!--            <ul class="dropdown-menu" role="menu">-->
+            <!--              <li><a href="#">Settings 1</a>-->
+            <!--              </li>-->
+            <!--              <li><a href="#">Settings 2</a>-->
+            <!--              </li>-->
+            <!--            </ul>-->
+            <!--          </li>-->
+            <!--          <li><a class="close-link"><i class="fa fa-close"></i></a>-->
+            <!--          </li>-->
+            <!--        </ul>-->
+            <!--        <div class="clearfix"></div>-->
+            <!--      </div>-->
+            <!--      <div class="x_content">-->
+                      
+            <!--          {% for key, value in item_usagetypes.items %}-->
+            <!--              USAGETYPE: {{ key }}</br>-->
+            <!--              Total: {{ value.cnt_total }}</br>-->
+            <!--              Globe: {{ value.perc_globe }}</br>-->
+            <!--              Smart: {{ value.perc_smart }}</br>-->
+            <!--              Sun: {{ value.perc_sun }}</br>-->
+            <!--              Unknown: {{ value.perc_unknown }}</br>-->
+            <!--              ------------------------------------------</br>-->
+            <!--          {% endfor %}-->
+            <!--      </div>-->
+            <!--    </div>-->
+            <!--  </div>-->
+            <!--</div>-->
+             <div class="row">
+               
+               {% for key, value in item_usagetypes.items %}
+               <div class="col-md-1 col-xs-12 widget widget_tally_box">
+                        <div class="x_panel fixed_height_420">
+                          <div class="x_title">
+                            <h6>{{ key }}</h6>
+                            <ul class="nav navbar-right panel_toolbox">
+                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                              </li>
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="#">Settings 1</a>
+                                  </li>
+                                  <li><a href="#">Settings 2</a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li><a class="close-link"><i class="fa fa-close"></i></a>
+                              </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content">
+
+                            <div style="text-align: center; margin-bottom: 17px">
+                              <ul class="verticle_bars list-inline">
+                                <li>
+                                  <div class="progress vertical progress_wide bottom">
+                                    <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="{{ value.perc_globe }}" aria-valuenow="{{ value.perc_globe }}" style="height: {{ value.perc_globe }}%;"></div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="progress vertical progress_wide bottom">
+                                    <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="{{ value.perc_smart }}" aria-valuenow="{{ value.perc_smart }}" style="height: {{ value.perc_smart }}%;"></div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="progress vertical progress_wide bottom">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="{{ value.perc_sun }}" aria-valuenow="{{ value.perc_sun }}" style="height: {{ value.perc_sun }}%;"></div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="progress vertical progress_wide bottom">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="{{ value.perc_unknown }}" aria-valuenow="{{ value.perc_unknown }}" style="height: {{ value.perc_unknown }}%;"></div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="divider"></div>
+
+                            <ul class="legend list-unstyled">
+                              <li>
+                                <p>
+                                  <span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Globe: {{ value.cnt_globe }}</span>
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  <span class="icon"><i class="fa fa-square grey"></i></span> <span class="name">Smart: {{ value.cnt_smart }}</span>
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  <span class="icon"><i class="fa fa-square blue"></i></span> <span class="name">Sun: {{value.cnt_sun}}</span>
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  <span class="icon"><i class="fa fa-square green"></i></span> <span class="name">Unknown: {{value.cnt_unknown}}</span>
+                                </p>
+                              </li>
+                            </ul>
+
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                      
+                      
+             </div>
+          </div>
+        <!-- /page content -->
+{% endblock content %}

@@ -49,8 +49,12 @@
     <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="{% static 'vendors/echarts/dist/echarts.min.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    
+    {% if request.path|slice:":8" == '/charts/' %}
+    <script src="{% static 'vendors/echarts/dist/echarts.min.js' %}"></script>
+		{% include 'charts/jsfile.html' %}
+    {% endif %}
 
     <!-- jQuery Smart Wizard -->
     <script src="{% static 'vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js' %}"></script>

@@ -65,6 +65,8 @@ LOCAL_APPS = [
     'bcast_online_report_dashboard.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'bcast_online_report_dashboard.usagetypes.apps.UsagetypesConfig',
+    'bcast_online_report_dashboard.dashboard.apps.DashboardConfig',
+    'bcast_online_report_dashboard.charts.apps.ChartsConfig',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -270,7 +272,8 @@ SOCIALACCOUNT_ADAPTER = 'bcast_online_report_dashboard.users.adapters.SocialAcco
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
 # LOGIN_REDIRECT_URL = 'users:redirect'
-LOGIN_REDIRECT_URL = 'usagetypes:wizard'
+# LOGIN_REDIRECT_URL = 'usagetypes:wizard'
+LOGIN_REDIRECT_URL = 'dashboard:dashboard'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER

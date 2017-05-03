@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Sum
 from datetime import date, datetime, timedelta
+from dateutil.relativedelta import *
 from .models import Bcast
 from .models import Usagetypes
 from .forms import DashboardForm
@@ -28,6 +29,26 @@ def get_usagetypes():
     for item in obj_usagetypes:
         the_list.append(item.usagetype)
     return the_list
+    
+    
+def get_last_three_months(request):
+    """return last 3 months from current, this includes the current month"""
+    """so it is actually 4 months in total"""
+    """ie: current month is Apr, the dictionary returned will be from Jan to Apr"""
+    """example output: {"prev_3_mos": [1, 2, 3, 4]}"""
+    today = date.today() - timedelta(days=1)
+    prev_3_mos = today - relativedelta(months=3)
+    prev_3_mos = int(prev_3_mos.strftime("%m"))
+    today_month = int(today.strftime("%m"))
+    the_months = []
+    for num in range(prev_3_mos, today_month+1):
+        the_months.append(num)
+    # return prev_3_mos
+    response_data = {}
+    response_data['prev_3_mos'] = the_months
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json"
+                       )
 
 
 # def get_json_bcast_data(request, usagetype, date_from, date_to):
@@ -81,19 +102,23 @@ def get_json_bcast_data(request):
     the_dict = {}
     trandates = []
     usagetype = '2GOEXP_ECOM_BCAST'
-    date_from = '2017-03-01'
-    date_to = '2017-03-05'
+    date_from = '2017-01-01'
+    date_to = '2017-04-24'
     the_obj = get_bcast_data(usagetype, date_from, date_to)
     for item in the_obj:
-        trandates.append(item['trandate'])
+        the_string = item['trandate'].encode('utf-8')
+        trandates.append(the_string)
     trandates.sort()
     print(trandates)
-    # for item in the_obj:
-    #     some_dict = {'cnt_globe': item['cnt_globe'],
-    #                  'cnt_smart': item['cnt_smart'],
-    #                  'cnt_sun': item['cnt_sun'],
-    #                  'cnt_unknown': item['cnt_unknown']}
-    #     data[item['trandate']].append(some_dict)
+    for item in the_obj:
+        the_string = item['trandate'].encode('utf-8')
+        response_data = {the_string: None}
+        some_dict = {'cnt_globe': item['cnt_globe'],
+                     'cnt_smart': item['cnt_smart'],
+                     'cnt_sun': item['cnt_sun'],
+                     'cnt_unknown': item['cnt_unknown']}
+        response_data[the_string] = some_dict
+        print('Response data: {}'.format(response_data))
     # for item in the_obj:
     #     print('{} {} {} {} {} {}'.format(usagetype, item.logtype, item.cnt_globe, item.cnt_smart, item.cnt_sun, item.cnt_unknown))
     return render(request, 'usagetypes/just_page.html',

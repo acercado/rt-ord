@@ -15,6 +15,7 @@ urlpatterns = [
     
     # go directly to allauth's login
     url(r"^$", views.login, name="account_login"),
+    url(r"^accounts/login", views.login, name="account_login"),
     
     url(r'^sampler$', TemplateView.as_view(template_name='base_main.html'), name='sampler'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
@@ -32,7 +33,7 @@ urlpatterns = [
     url(r'^accounts/signup', views.signup, name="account_signup"),
 
     # Your stuff: custom urls includes go here
-
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

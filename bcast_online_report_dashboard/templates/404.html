@@ -1,9 +1,12 @@
-{% extends "base.html" %}
-
-{% block title %}Page not found{% endblock %}
-
-{% block content %}
+{% load staticfiles %}
+{% include 'base_header.html' %}
+{% include 'base_sidebar.html' %}
+{% include 'base_topbar.html' %}
+<!-- page content -->
+<div class="right_col" role="main">
 <h1>Page not found</h1>
 
 <p>This is not the page you were looking for.</p>
-{% endblock content %}
+</div>
+<!-- /page content -->
+{% include 'base_footer.html' %}

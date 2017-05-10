@@ -274,6 +274,7 @@ AUTH_USER_MODEL = 'users.User'
 # LOGIN_REDIRECT_URL = 'users:redirect'
 # LOGIN_REDIRECT_URL = 'usagetypes:wizard'
 LOGIN_REDIRECT_URL = 'dashboard:panel1'
+# LOGIN_REDIRECT_URL = 'dashboard:panel3'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER

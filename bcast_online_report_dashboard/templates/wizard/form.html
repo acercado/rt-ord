@@ -30,12 +30,13 @@
     <form class="form-horizontal form-label-left" method="POST">
       {% csrf_token %}
       <span class="section">Select Usagetypes and Date Range</span>
+      <h4>{{ user.is_superuser }}</h4>
 
       <div class="control-group">
         <div class="row">
           <label class="control-label col-md-3 col-sm-3 col-xs-12">Usagetypes</label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" value="2GOEXP_ECOM_BCAST,ECOM_MT,BUSYBEE_MT" data-role="tagsinput" id="usagetypes" name="usagetypes"/>
+            <input type="text" value="{{usagetype_list}}" data-role="tagsinput" id="usagetypes" name="usagetypes"/>
           </div>
         </div>
         <div class="clearfix">&nbsp;</div>

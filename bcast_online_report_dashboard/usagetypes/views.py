@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Sum
+from django.db import connection
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import *
 from .models import Bcast
 from .models import Usagetypes
+from .models import DashboardLastSession
 from .forms import DashboardForm
 
 
@@ -138,6 +140,11 @@ def get_current_daterange():
                      1).strftime("%m/%d/%y")
     end_day = today.strftime("%m/%d/%y")
     return start_day, end_day
+    
+    
+def get_dashboard_last_session():
+    ds_obj = DashboardLastSession.objects.all()
+    return ds_obj
 
 def form_wizard(request):
     obj_usagetypes = get_usagetypes()
@@ -145,17 +152,19 @@ def form_wizard(request):
 
     if request.method == 'POST':
         # usagetypes = request.POST['usagetype']
-        usagetypes = request.POST.get('usagetypes','')
-        usagetypes = usagetypes.split(',')
+        usagetypes_raw = request.POST.get('usagetypes','')
+        usagetypes = usagetypes_raw.split(',')
         daterange_start = request.POST['daterange_start']
         daterange_end = request.POST['daterange_end']
 
         for item in usagetypes:
             print('item: {}'.format(item))
+            print('daterange_start: {}'.format(daterange_start[:10]))
+            print('daterange_end: {}'.format(daterange_end[:10]))
             data = {
                 'usagetype': item,
-                'daterange_start': daterange_start,
-                'daterange_end': daterange_end
+                'daterange_start': daterange_start[:10],
+                'daterange_end': daterange_end[:10]
             }
             form = DashboardForm(data)
             print(form.is_valid())
@@ -168,8 +177,19 @@ def form_wizard(request):
             dashboard.save()
             # else:
             #     print('form was not valid')
+            
+        # also save a 'session' of this
+        # cursor = connection.cursor()
+        # cursor.execute("TRUNCATE TABLE `ord_bcast_saved_dashboard`")
+        DashboardLastSession.objects.all().delete()
+        ds = DashboardLastSession(usagetypelist=usagetypes_raw)
+        ds.save()
+        
+        ds_obj = get_dashboard_last_session()
+        usagetype_list = ds_obj[0]
         return render(request, 'wizard/form.html',
                       {
+                            'usagetype_list': usagetype_list,
                             'usagetypes': obj_usagetypes,
                             'date_start': obj_startdate,
                             'date_end': obj_enddate,
@@ -177,9 +197,11 @@ def form_wizard(request):
                       })
 
     else:
-        pass
+        ds_obj = get_dashboard_last_session()
+        usagetype_list = ds_obj[0]
     return render(request, 'wizard/form.html',
                   {
+                        'usagetype_list': usagetype_list,
                         'usagetypes': obj_usagetypes,
                         'date_start': obj_startdate,
                         'date_end': obj_enddate

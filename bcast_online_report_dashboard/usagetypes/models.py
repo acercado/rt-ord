@@ -39,9 +39,28 @@ class Dashboard(models.Model):
     username = models.CharField(max_length=150)
     tstamp = models.DateTimeField(auto_now_add=True)
 
+    def __unicode__(self):
+        return self.usagetype
+    
     def __str__(self):
         return self.usagetype
 
     class Meta:
         db_table = "ord_bcast_saved_dashboard"
         managed = False
+
+class DashboardLastSession(models.Model):
+    rowid = models.AutoField(primary_key=True)
+    usagetypelist = models.TextField()
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
+    
+    def __unicode__(self):
+        return self.usagetypelist
+        
+    def __str__(self):
+        return self.usagetypelist
+        
+    class Meta:
+        db_table = "ord_bcast_dashboard_last_session"
+        

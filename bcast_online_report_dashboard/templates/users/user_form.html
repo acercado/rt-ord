@@ -1,17 +1,65 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-
-{% block title %}{{ user.username }}{% endblock %}
-
+{% extends "base_main.html" %}
+{% load staticfiles %}
 {% block content %}
-  <h1>{{ user.username }}</h1>
-  <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <div class="control-group">
-      <div class="controls">
-        <button type="submit" class="btn">Update</button>
-      </div>
-    </div>
-  </form>
-{% endblock %}
+        <!-- page content -->
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h4>BCast Usagetypes ({{month_today}})</h4>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+            
+                        <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Plain Page</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
+                      {% csrf_token %}
+                      <div class="control-group">
+                        <div class="controls">
+                          {{ user_form.as_p }}
+                          {{ profile_form.as_p }}
+                          <button type="submit" class="btn">Update</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+             
+          </div>
+        <!-- /page content -->
+{% endblock content %}

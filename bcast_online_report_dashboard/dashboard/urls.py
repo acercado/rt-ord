@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^panel2/$', views.dashboard2, name='panel2'),
     url(r'^panel3/$', views.dashboard3, name='panel3'),
     url(r'^datatables/$', views.datatables, name='datatables'),
+    
+    url(r'^tester/$', views.tester, name='tester'),
 ]

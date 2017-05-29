@@ -91,6 +91,12 @@ DATABASES = {
     #     'USER': 'acercado',
     #     'PASSWORD': 'isf4laxi',
     # },
+    # 'pandaserver': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'ord',
+    #     'USER': 'ord_admin',
+    #     'PASSWORD': 'ord_admin',
+    # },
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'c9',

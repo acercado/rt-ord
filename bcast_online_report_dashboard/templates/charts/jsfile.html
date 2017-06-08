@@ -1,6 +1,4 @@
     <script type="text/javascript">
-      alert('{{usagetype}}');
-      
       function init_echarts() {
         
         if( typeof (echarts) === 'undefined'){ return; }
@@ -228,7 +226,7 @@
 
                   echartLine.setOption({
                     title: {
-                      text: '2GOEXP_ECOM_BCAST',
+                      text: '{{usagetype}}',
                       subtext: 'Count'
                     },
                     tooltip: {
@@ -237,7 +235,7 @@
                     legend: {
                       x: 220,
                       y: 40,
-                      data: ['Globe', 'Smart', 'Sun', 'Unknown']
+                      data: {{telcos|safe}}
                     },
                     toolbox: {
                       show: true,
@@ -266,7 +264,8 @@
                     xAxis: [{
                       type: 'category',
                       boundaryGap: false,
-                      data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05']
+                      // data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05']
+                      data: {{trandates|safe}}
                     }],
                     yAxis: [{
                       type: 'value'
@@ -282,7 +281,8 @@
                           }
                         }
                       },
-                      data: [2442, 2452, 2727, 2316, 22]
+                      // data: [2442, 2452, 2727, 2316, 22]
+                      data: {{values_globe|safe}}
                     }, {
                       name: 'Smart',
                       type: 'line',
@@ -294,7 +294,8 @@
                           }
                         }
                       },
-                      data: [2016,2226,1867,2051,40]
+                      // data: [2016,2226,1867,2051,40]
+                      data: {{values_smart|safe}}
                     }, {
                       name: 'Sun',
                       type: 'line',
@@ -306,7 +307,8 @@
                           }
                         }
                       },
-                      data: [381, 487, 422, 410, 1]
+                      // data: [381, 487, 422, 410, 1]
+                      data: {{values_sun|safe}}
                     }, {
                       name: 'Unknown',
                       type: 'line',
@@ -318,7 +320,8 @@
                           }
                         }
                       },
-                      data: [645, 690, 692, 654, 7]
+                      // data: [645, 690, 692, 654, 7]
+                      data: {{values_unknown|safe}}
                     }]
                   });
 

@@ -29,15 +29,14 @@ def get_usagetype_totals():
     for items in obj_bcast:
         print('Usagetype: {} / Globe: {}'.format(items['usagetype'].encode('utf-8'), items['cnt_globe']))
     return obj_bcast
-    
+
 def get_usagetypes():
     obj_usagetypes = Usagetypes.objects.all()
     the_list = []
     for item in obj_usagetypes:
         the_list.append(item.usagetype)
     return the_list
-    
-    
+
 def json_usagetypes(request):
     """Returns a dictionary
     of usagetypes
@@ -53,7 +52,7 @@ def json_usagetypes(request):
     return HttpResponse(json.dumps(response_data),
                         content_type="application/json"
                        )
-    
+
 def json_last_three_months(request):
     """return last 3 months from current, this includes the current month"""
     """so it is actually 4 months in total"""
@@ -71,10 +70,9 @@ def json_last_three_months(request):
     return HttpResponse(json.dumps(response_data),
                         content_type="application/json"
                        )
-                       
+
 def get_current_mtd():
-    """returns first day of month to yesterday's month"""
-    # get current month
+    """returns first day of month to current EOD (yesterday)"""
     today = date.today()
     month_today = int(today.strftime("%m"))
     year_today = int(today.strftime("%Y"))
@@ -84,8 +82,8 @@ def get_current_mtd():
     end_date = yesterday.strftime("%Y-%m-%d")
     month_today = start_date + ' - ' + end_date
     return start_date, end_date
-                       
-                       
+
+
 # def get_json_bcast_data(request, usagetype, date_from, date_to):
 def get_usagetype_data(usagetype, date_from, date_to):
     # obj_bcast = Bcast.objects.filter(usagetype=usagetype, trandate__range=(date_from, date_to)).order_by('trandate')
@@ -99,14 +97,28 @@ def get_usagetype_data(usagetype, date_from, date_to):
                                          cnt_sun=Sum('cnt_sun'),
                                          cnt_unknown=Sum('cnt_unknown'))
     # end: for summation
-    return obj_bcast                       
-                       
-                       
-def get_bcast_mtd_data(date_from, date_to):
-    obj_bcast = Bcast.objects.filter(trandate__range=('2017-04-01','2017-04-25'))\
-                             .values('usagetype','trandate')\
-                             .annotate(cnt_globe=Sum('cnt_globe'),
-                                       cnt_smart=Sum('cnt_smart'),
-                                       cnt_sun=Sum('cnt_sun'),
-                                       cnt_unknown=Sum('cnt_unknown'))
+    return obj_bcast
+
+
+def get_bcast_mtd_data(date_from, date_to, usagetype=None):
+    if usagetype:
+        print('usagetype was supplied: {}'.format(usagetype))
+        # obj_bcast = Bcast.objects.filter(trandate__range=('2017-04-01','2017-04-25'))\
+        obj_bcast = Bcast.objects.filter(trandate__range=(date_from, date_to), usagetype=usagetype)\
+                                 .values('usagetype', 'trandate')\
+                                 .annotate(cnt_globe=Sum('cnt_globe'),
+                                           cnt_smart=Sum('cnt_smart'),
+                                           cnt_sun=Sum('cnt_sun'),
+                                           cnt_unknown=Sum('cnt_unknown'))\
+                                 .order_by('usagetype', 'trandate')
+    else:
+        obj_bcast = Bcast.objects.filter(trandate__range=(date_from, date_to))\
+                                 .values('usagetype', 'trandate')\
+                                 .annotate(cnt_globe=Sum('cnt_globe'),
+                                           cnt_smart=Sum('cnt_smart'),
+                                           cnt_sun=Sum('cnt_sun'),
+                                           cnt_unknown=Sum('cnt_unknown'))\
+                                 .order_by('usagetype', 'trandate')
+    print('on get_bcast_mtd_data')
+    print(obj_bcast.query)
     return obj_bcast

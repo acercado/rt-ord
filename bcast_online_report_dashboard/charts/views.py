@@ -10,7 +10,7 @@ def charts_panel1(request):
     obj_bcast_mtd_data = get_bcast_mtd_data(start_date, end_date)
     charts_to_generate = []
     lst_telcos = ['Globe', 'Smart', 'Sun', 'Unknown']
-    lst_trandates = []
+    lst_trandate = []
     lst_globe = []
     lst_smart = []
     lst_sun = []
@@ -52,32 +52,57 @@ def charts_panel1(request):
     dict_unit = {}
     dict_trandate = {}
     dict_usagetype = {}
+    dict_inside = {}
+    lst_processed_usagetypes = []
 
     for item in obj_bcast_mtd_data:
         # print(item)
-
         ret_usagetype = item['usagetype']
+        if item not in lst_processed_usagetypes:
+            lst_processed_usagetypes.append(ret_usagetype)
         ret_trandate = item['trandate']
         ret_globe = item['cnt_globe']
         ret_smart = item['cnt_smart']
         ret_sun = item['cnt_sun']
         ret_unknown = item['cnt_unknown']
 
-        lst_trandates.append(item['trandate'])
-        lst_globe.append(item['cnt_globe'])
-        lst_smart.append(item['cnt_smart'])
-        lst_sun.append(item['cnt_sun'])
-        lst_unknown.append(item['cnt_unknown'])
+        # lst_trandates.append(item['trandate'])
+        # lst_globe.append(item['cnt_globe'])
+        # lst_smart.append(item['cnt_smart'])
+        # lst_sun.append(item['cnt_sun'])
+        # lst_unknown.append(item['cnt_unknown'])
 
-        dict_telco = {'globe': ret_globe,
-                      'smart': ret_smart,
-                      'sun': ret_sun,
-                      'unknown': ret_unknown}
-        dict_trandate.update({ret_trandate: dict_telco})
+        # dict_telco = {'globe': ret_globe,
+        #               'smart': ret_smart,
+        #               'sun': ret_sun,
+        #               'unknown': ret_unknown}
+        # dict_trandate.update({ret_trandate: dict_telco})
 
-        dict_usagetype.update({ret_usagetype: dict_trandate})
+        # dict_usagetype.update({ret_usagetype: dict_trandate})
 
-    print(dict_usagetype)
+        if ret_usagetype not in dict_unit:
+            # reset the list
+            lst_trandate = []
+            lst_globe = []
+            lst_smart = []
+            lst_sun = []
+            lst_unknown = []
+
+        lst_trandate.append(ret_trandate)
+        lst_globe.append(ret_globe)
+        lst_smart.append(ret_smart)
+        lst_sun.append(ret_sun)
+        lst_unknown.append(ret_unknown)
+
+        dict_inside = {'trandate': lst_trandate,
+                       'globe': lst_globe,
+                       'smart': lst_smart,
+                       'sun': lst_sun,
+                       'unknown': lst_unknown}
+        dict_unit.update({ret_usagetype: dict_inside})
+
+
+    print(dict_unit)
 
         # dict_unit = {ret_usagetype: None}
         # dict_unit[ret_usagetype].update({ret_trandate: None})
@@ -89,13 +114,6 @@ def charts_panel1(request):
 
     return render(request, 'charts/index.html',
                   {
-                      'chart_data': obj_bcast_mtd_data,
-                      'usagetype': usagetype,
-                      'charts_to_generate': charts_to_generate,
                       'telcos': lst_telcos,
-                      'trandates': lst_trandates,
-                      'values_globe': lst_globe,
-                      'values_smart': lst_smart,
-                      'values_sun': lst_sun,
-                      'values_unknown': lst_unknown,
+                      'dict_unit': dict_unit,
                   })

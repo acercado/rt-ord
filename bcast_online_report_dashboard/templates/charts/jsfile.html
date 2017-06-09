@@ -1,9 +1,9 @@
     <script type="text/javascript">
       function init_echarts() {
-        
+
         if( typeof (echarts) === 'undefined'){ return; }
 				console.log('init_echarts');
-				
+
 				var theme = {
 				  color: [
 					  '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
@@ -215,18 +215,20 @@
 					  fontFamily: 'Arial, Verdana, sans-serif'
 				  }
 			  };
-			  
-			  {% for item in chart_data %}
-			  	console.log("{{item|safe}}")
-			  {% endfor %}
-				
-        if ($('#echart_line1').length ){
 
-                  var echartLine = echarts.init(document.getElementById('echart_line1'), theme);
+			  {# for item in chart_data #}
+			  	// console.log("{{item|safe}}")
+			  {# endfor #}
+
+
+		{% for key, value in dict_unit.items %}
+        if ($('#{{key}}_echart').length ){
+
+                  var echartLine = echarts.init(document.getElementById('{{key}}_echart'), theme);
 
                   echartLine.setOption({
                     title: {
-                      text: '{{usagetype}}',
+                      text: '{{key}}',
                       subtext: 'Count'
                     },
                     tooltip: {
@@ -265,7 +267,8 @@
                       type: 'category',
                       boundaryGap: false,
                       // data: ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05']
-                      data: {{trandates|safe}}
+                      // data: {{trandates|safe}}
+                      data: {{ value.trandate|safe }}
                     }],
                     yAxis: [{
                       type: 'value'
@@ -282,7 +285,8 @@
                         }
                       },
                       // data: [2442, 2452, 2727, 2316, 22]
-                      data: {{values_globe|safe}}
+                      // data: {{values_globe|safe}}
+                      data: {{ value.globe|safe }}
                     }, {
                       name: 'Smart',
                       type: 'line',
@@ -295,7 +299,8 @@
                         }
                       },
                       // data: [2016,2226,1867,2051,40]
-                      data: {{values_smart|safe}}
+                      // data: {{values_smart|safe}}
+                      data: {{ value.smart|safe }}
                     }, {
                       name: 'Sun',
                       type: 'line',
@@ -308,7 +313,8 @@
                         }
                       },
                       // data: [381, 487, 422, 410, 1]
-                      data: {{values_sun|safe}}
+                      // data: {{values_sun|safe}}
+                      data: {{ value.sun|safe }}
                     }, {
                       name: 'Unknown',
                       type: 'line',
@@ -321,12 +327,13 @@
                         }
                       },
                       // data: [645, 690, 692, 654, 7]
-                      data: {{values_unknown|safe}}
+                      // data: {{values_unknown|safe}}
+                      data: {{ value.unknown|safe }}
                     }]
                   });
 
                 }
-        
+        {% endfor %}
       }
       $(document).ready(function() {
         init_echarts();

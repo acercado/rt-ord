@@ -21,7 +21,7 @@
             </div>
 
             <div class="clearfix"></div>
-            
+
                         <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -45,13 +45,13 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      <div id="echart_line1" style="height:350px;"></div>
-
+                      {% for key, value in dict_unit.items %}
+                      <div id="{{key}}_echart" style="height:350px;"></div>
+                      {% endfor %}
                   </div>
                 </div>
               </div>
             </div>
-             
           </div>
         <!-- /page content -->
 {% endblock content %}

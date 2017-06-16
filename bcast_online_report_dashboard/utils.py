@@ -85,22 +85,22 @@ def get_current_mtd():
 
 
 # def get_json_bcast_data(request, usagetype, date_from, date_to):
-def get_usagetype_data(usagetype, date_from, date_to):
+def get_bcast_mtd_data(usagetype, date_from, date_to):
     # obj_bcast = Bcast.objects.filter(usagetype=usagetype, trandate__range=(date_from, date_to)).order_by('trandate')
     # start: for summation
-    obj_bcast = Bcast.objects.filter(usagetype=usagetype,
-                                     trandate__range=(date_from, date_to))\
-                             .values('trandate')\
-                             .annotate(
-                                         cnt_globe=Sum('cnt_globe'),
-                                         cnt_smart=Sum('cnt_smart'),
-                                         cnt_sun=Sum('cnt_sun'),
-                                         cnt_unknown=Sum('cnt_unknown'))
+    obj_bcast = Bcast.objects.filter(usagetype=usagetype, trandate__range=(date_from, date_to))\
+                             .values('usagetype')\
+                             .annotate(cnt_globe=Sum('cnt_globe'),
+                                       cnt_smart=Sum('cnt_smart'),
+                                       cnt_sun=Sum('cnt_sun'),
+                                       cnt_unknown=Sum('cnt_unknown'))\
+                             .order_by('usagetype')
     # end: for summation
+    print(obj_bcast.query)
     return obj_bcast
 
 
-def get_bcast_mtd_data(date_from, date_to, usagetype=None):
+def get_bcast_mtd_data_trandate(date_from, date_to, usagetype=None):
     if usagetype:
         print('usagetype was supplied: {}'.format(usagetype))
         # obj_bcast = Bcast.objects.filter(trandate__range=('2017-04-01','2017-04-25'))\
@@ -119,6 +119,5 @@ def get_bcast_mtd_data(date_from, date_to, usagetype=None):
                                            cnt_sun=Sum('cnt_sun'),
                                            cnt_unknown=Sum('cnt_unknown'))\
                                  .order_by('usagetype', 'trandate')
-    print('on get_bcast_mtd_data')
     print(obj_bcast.query)
     return obj_bcast

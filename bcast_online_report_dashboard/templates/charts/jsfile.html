@@ -1,4 +1,6 @@
     <script type="text/javascript">
+
+
       function init_echarts() {
 
         if( typeof (echarts) === 'undefined'){ return; }
@@ -335,7 +337,63 @@
                 }
         {% endfor %}
       }
+
+      function init_charts() {
+
+				console.log('run_charts  typeof [' + typeof (Chart) + ']');
+
+				if( typeof (Chart) === 'undefined'){ return; }
+
+				console.log('init_charts');
+
+
+				Chart.defaults.global.legend = {
+					enabled: false
+				};
+
+        {% for key, value in dict_unit.items %}
+        if ($('#{{key}}_pieChart').length ){
+
+			  // Pie chart
+			  // if ($('#pieChart').length ){
+
+				  var ctx = document.getElementById("pieChart");
+				  var data = {
+					datasets: [{
+					  data: [120, 50, 140, 180, 100],
+					  backgroundColor: [
+						"#455C73",
+						"#9B59B6",
+						"#BDC3C7",
+						"#26B99A",
+						"#3498DB"
+					  ],
+					  label: 'My dataset' // for legend
+					}],
+					labels: [
+					  "Dark Gray",
+					  "Purple",
+					  "Gray",
+					  "Green",
+					  "Blue"
+					]
+				  };
+
+				  var pieChart = new Chart(ctx, {
+					data: data,
+					type: 'pie',
+					otpions: {
+					  legend: false
+					}
+				  });
+
+			  }
+        {% endfor %}
+
+			}
+
       $(document).ready(function() {
         init_echarts();
+        init_charts();
       });
     </script>

@@ -85,20 +85,24 @@ def get_current_mtd():
 
 
 # def get_json_bcast_data(request, usagetype, date_from, date_to):
-def get_bcast_mtd_data(usagetype, date_from, date_to):
-    # obj_bcast = Bcast.objects.filter(usagetype=usagetype, trandate__range=(date_from, date_to)).order_by('trandate')
-    # start: for summation
-    obj_bcast = Bcast.objects.filter(usagetype=usagetype, trandate__range=(date_from, date_to))\
-                             .values('usagetype')\
-                             .annotate(cnt_globe=Sum('cnt_globe'),
-                                       cnt_smart=Sum('cnt_smart'),
-                                       cnt_sun=Sum('cnt_sun'),
-                                       cnt_unknown=Sum('cnt_unknown'))\
-                             .order_by('usagetype')
-    # end: for summation
-    print(obj_bcast.query)
+def get_bcast_mtd_data(date_from, date_to, usagetype=None):
+    if usagetype:
+        obj_bcast = Bcast.objects.filter(usagetype=usagetype, trandate__range=(date_from, date_to))\
+                                 .values('usagetype')\
+                                 .annotate(cnt_globe=Sum('cnt_globe'),
+                                           cnt_smart=Sum('cnt_smart'),
+                                           cnt_sun=Sum('cnt_sun'),
+                                           cnt_unknown=Sum('cnt_unknown'))\
+                                 .order_by('usagetype')
+    else:
+        obj_bcast = Bcast.objects.filter(trandate__range=(date_from, date_to))\
+                                 .values('usagetype')\
+                                 .annotate(cnt_globe=Sum('cnt_globe'),
+                                           cnt_smart=Sum('cnt_smart'),
+                                           cnt_sun=Sum('cnt_sun'),
+                                           cnt_unknown=Sum('cnt_unknown'))\
+                                 .order_by('usagetype')
     return obj_bcast
-
 
 def get_bcast_mtd_data_trandate(date_from, date_to, usagetype=None):
     if usagetype:

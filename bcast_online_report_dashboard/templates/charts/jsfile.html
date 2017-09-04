@@ -351,31 +351,36 @@
 					enabled: false
 				};
 
-        {% for key, value in dict_unit.items %}
+        {% for key, value in dict_mtd.items %}
+        // console.log('{{key|safe}}')
+        // console.log("{{value|safe}}")
+        // console.log("Globe: {{value.globe|safe}}")
         if ($('#{{key}}_pieChart').length ){
 
 			  // Pie chart
 			  // if ($('#pieChart').length ){
 
-				  var ctx = document.getElementById("pieChart");
+				  var ctx = document.getElementById("{{key}}_pieChart");
 				  var data = {
 					datasets: [{
-					  data: [120, 50, 140, 180, 100],
+					  data: [{{value.globe|safe}}, {{value.smart|safe}}, {{value.sun|safe}}, {{value.unknown|safe}}],
 					  backgroundColor: [
-						"#455C73",
-						"#9B59B6",
-						"#BDC3C7",
-						"#26B99A",
-						"#3498DB"
+						// "#455C73",
+						// "#9B59B6",
+						// "#BDC3C7",
+						// "#26B99A"
+              "#26B99A",
+              "#34495E",
+              "#BDC3C7",
+              "#3498DB"
 					  ],
 					  label: 'My dataset' // for legend
 					}],
 					labels: [
-					  "Dark Gray",
-					  "Purple",
-					  "Gray",
-					  "Green",
-					  "Blue"
+					  "Globe",
+					  "Smart",
+					  "Sun",
+					  "Unknown"
 					]
 				  };
 

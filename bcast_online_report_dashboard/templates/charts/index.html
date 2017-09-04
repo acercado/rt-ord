@@ -45,16 +45,64 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <div class="col-md-8">
-                      {% for key, value in dict_unit.items %}
-                      <div id="{{key}}_echart" style="height:350px;"></div>
-                      {% endfor %}
+                    <div class="row">
+                      <div class="col-md-12">
+                        {% for key, value in dict_unit.items %}
+                        <div id="{{key}}_echart" style="height:350px;"></div>
+                        <div>{{dict_mtd.items.value}}</div>
+                        {% endfor %}
+                      </div>
                     </div>
-                    <div class="col-md-4">
-                      {% for key, value in dict_unit.items %}
-                      <canvas id="{{key}}_pieChart"></canvas>
-                      % endfor %}
-                    </div>
+
+                    <!-- <div class="row">
+                      <div class="col-md-12">
+                        {% for key, value in dict_mtd.items %}
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Telco</th>
+                                <th>Value</th>
+                                <th>Percent</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td style="color: #26B99A; font-weight: bold">Globe</td>
+                                <td>{{value.globe|safe}}</td>
+                                <td>{{value.perc_globe|safe}}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td style="color: #34495E; font-weight: bold">Smart</td>
+                                <td>{{value.smart|safe}}</td>
+                                <td>{{value.perc_smart|safe}}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td style="color: #BDC3C7; font-weight: bold">Sun</td>
+                                <td>{{value.sun|safe}}</td>
+                                <td>{{value.perc_sun|safe}}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td style="color: #3498DB; font-weight: bold">Unknown</td>
+                                <td>{{value.unknown|safe}}</td>
+                                <td>{{value.perc_unknown|safe}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        {% endfor %}
+
+                        {% for key, value in dict_unit.items %}
+                        <canvas id="{{key}}_pieChart"></canvas>
+                        {% endfor %}
+                      </div>
+
+                    </div> -->
+
+
                   </div>
                 </div>
               </div>
